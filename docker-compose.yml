@@ -6,6 +6,7 @@ services:
   ###############################
 
   server:
+    container_name: server
     build: ./server
     expose:
       - ${APP_SERVER_PORT}
@@ -16,15 +17,16 @@ services:
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
     volumes:
       - ./server:/app/server
-    # depends_on:
-    #   - database
-    command: npm run dev
+    depends_on:
+      - database
+    command: npm start
 
   ###############################
   #   Setup client container
   ###############################
 
   client:
+    container_name: client
     build: ./client
     expose:
       - ${REACT_APP_PORT}
@@ -35,9 +37,9 @@ services:
     volumes:
       - ./client/src:/app/client/src
       - ./client/public:/app/client/public
-    # depends_on:
-      # - server
-      # - database
+    depends_on:
+      - server
+      - database
     links:
       - server
     command: npm run start
@@ -46,9 +48,9 @@ services:
   #   Setup database container
   ###############################
 
-  # database:
-  #   container_name: postgres
-  #   image: postgres:latest
-  #   hostname: postgres
-  #   ports:
-  #     - 5432:5432
+  database:
+    container_name: database
+    image: postgres:latest
+    hostname: postgres
+    ports:
+      - 5432:5432

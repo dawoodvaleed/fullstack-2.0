@@ -1,0 +1,13 @@
+{
+  "sqltools.connections": [
+    {
+      "database": "chairlift",
+      "dialect": "PostgreSQL",
+      "name": "Chairlift DB",
+      "password": "postgres",
+      "port": 5432,
+      "server": "database",
+      "username": "postgres"
+    }
+  ]
+}
